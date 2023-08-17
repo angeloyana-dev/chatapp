@@ -26,7 +26,7 @@
   	<div class="main-container">
   		<header>
   			<h1>Chat app</h1>
-  			<button class="fa-solid fa-user"></button>
+  			<button onclick="openUsersList()" class="fa-solid fa-user"></button>
   		</header>
   		
   		<!-- Message output section -->
@@ -73,8 +73,9 @@
   		</section>
   	</div>
   	<!-- Online user list section -->
-  	<section class="online-user-list-container">
+  	<section id="usersListContainer" class="online-user-list-container">
   		<ul id="onlineUserList">
+  			<li onclick="closeUsersList()">Close</li>
   			<li>user002</li>
   			<li>user001</li>
   		</ul>
