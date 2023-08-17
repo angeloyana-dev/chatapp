@@ -23,6 +23,53 @@
     <title>Chat App</title>
   </head>
   <body>
-  	
+  	<div class="main-container">
+  		<header>
+  			<h1>Chat app</h1>
+  			<button class="fa-solid fa-user"></button>
+  		</header>
+  		
+  		<!-- Message output section -->
+  		<section class="msg-container">
+  			<div id="old-msg-wrapper"></div>
+  			<div id="current-msg-wrapper">
+  				<div class="greet-msg-container">
+  					<div>
+  						Welcome to Chat App user002!
+  					</div>
+  				</div>
+  				
+  				<!-- Temporary template -->
+  				<div class="others-msg-container">
+  					<div>
+	  					<span>user001</span>
+	  					<p>Hi user002, how are you today?</p>
+	  					<span>8:09pm</span>
+  					</div>
+  				</div>
+  				
+  				<div class="user-msg-container">
+	  				<div>
+	  					<span>user002</span>
+	  					<p>Hey user001, im better than ever! how about you?</p>
+	  					<span>8:10pm</span>
+	  				</div>
+  				</div>
+  			</div>
+  		</section>
+  		
+  		<!-- Message input section -->
+  		<section class="user-input-container">
+  			<input type="text" placeholder="Type a message">
+  			<button class="fa-solid fa-paper-plane"></button>
+  		</section>
+  	</div>
+  	<!-- Online user list section -->
+  	<section class="online-user-list-container">
+  		<ul id="onlineUserList">
+  			<li>user002</li>
+  			<li>user001</li>
+  		</ul>
+  	</section>
   </body>
 </html>
