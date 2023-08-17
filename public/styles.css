@@ -47,6 +47,78 @@ html {
 
 .main-container .msg-container {
 	flex: 1;
+	overflow-y: auto;
+	padding: 1rem;
+}
+
+.main-container .msg-container #current-msg-wrapper {
+	overflow-y: auto;
+	display: flex;
+	flex-direction: column;
+	gap: 0.45rem;
+}
+
+.main-container .msg-container #current-msg-wrapper .greet-msg-container {
+	display: flex;
+	justify-content: center;
+}
+
+.main-container .msg-container #current-msg-wrapper .greet-msg-container div {
+	background: #e2e8f0;
+	font-size: 0.75rem;
+	padding: 0.325rem;
+	border-radius: 0.4rem;
+	display: inline;
+	margin: auto;
+}
+
+.main-container .msg-container #current-msg-wrapper .others-msg-container {
+	display: flex;
+	justify-content: flex-start;
+}
+
+.main-container .msg-container #current-msg-wrapper .others-msg-container > div {
+	max-width: 60%;
+}
+
+.main-container .msg-container #current-msg-wrapper .others-msg-container p {
+	background: #e2e8f0;
+	padding: 0.7rem;
+	border-radius: 0.5rem;
+	word-break: break-word;
+}
+
+.main-container .msg-container #current-msg-wrapper .others-msg-container span {
+	font-size: 0.7rem;
+	color: #64748b;
+	text-align: left;
+	display: block;
+	padding-left: 0.5rem;
+}
+
+.main-container .msg-container #current-msg-wrapper .user-msg-container {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.main-container .msg-container #current-msg-wrapper .user-msg-container > div {
+	max-width: 60%;
+}
+
+.main-container .msg-container #current-msg-wrapper .user-msg-container p {
+	background: #0f172a;
+	color: #fff;
+	padding: 0.7rem;
+	border-radius: 0.5rem;
+	word-break: break-word;
+}
+
+.main-container .msg-container #current-msg-wrapper .user-msg-container span {
+	font-size: 0.7rem;
+	color: #64748b;
+	text-align: right;
+	display: block;
+	padding-right: 0.5rem;
 }
 
 .main-container .user-input-container {
