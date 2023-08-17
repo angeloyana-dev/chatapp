@@ -1,6 +1,7 @@
 $slate: hsl(222, 47.4%, 11.2%);
 $slate-sub-dark: hsl(217, 32.6%, 17.5%);
 $slate-medium: hsl(215, 16.3%, 46.9%);
+$slate-400: hsl(215, 20.2%, 65.1%);
 $slate-100: hsl(210, 40%, 96.1%);
 $slate-50: hsl(210, 40%, 98%);
 $white: #fff;
@@ -17,4 +18,73 @@ html {
   font-family: "Lexend Deca";
   font-size: 16px;
   color: $slate;
+}
+
+.main-container {
+	background: $slate-50;
+	width: 100%;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	
+	header {
+		background: $slate;
+		color: $white;
+		padding: 1rem;
+		position: relative;
+		
+		h1 {
+			text-align: center;
+			font-family: "Poppins";
+			font-size: 1.1rem;
+			font-weight: 500;
+		}
+		
+		button {
+			border: none;
+			background: none;
+			color: $white;
+			font-size: 1rem;
+			position: absolute;
+			top: 50%;
+			right: 1.1rem;
+			transform: translateY(-50%);
+		}
+	}
+	
+	.msg-container {
+		flex: 1;
+	}
+	
+	.user-input-container {
+		box-shadow: 0 -5px 10px #00000010;
+		display: flex;
+		
+		input {
+			flex: 1;
+			border: none;
+			color: $slate;
+			font-family: "Lexend Deca";
+			font-size: 1rem;
+			padding: 1rem;
+			background: transparent;
+			
+			&::placeholder {
+				color: $slate-400;
+			}
+		}
+		
+		button {
+			border: none;
+			background: $slate;
+			color: $white;
+			font-size: 1rem;
+			padding: 1rem;
+		}
+	}
+	
+}
+
+.online-user-list-container {
+	display: none;
 }

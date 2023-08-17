@@ -11,3 +11,71 @@ html {
 	font-size: 16px;
 	color: #0f172a;
 }
+
+.main-container {
+	background: #f8fafc;
+	width: 100%;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+}
+
+.main-container header {
+	background: #0f172a;
+	color: #fff;
+	padding: 1rem;
+	position: relative;
+}
+
+.main-container header h1 {
+	text-align: center;
+	font-family: "Poppins";
+	font-size: 1.1rem;
+	font-weight: 500;
+}
+
+.main-container header button {
+	border: none;
+	background: none;
+	color: #fff;
+	font-size: 1rem;
+	position: absolute;
+	top: 50%;
+	right: 1.1rem;
+	transform: translateY(-50%);
+}
+
+.main-container .msg-container {
+	flex: 1;
+}
+
+.main-container .user-input-container {
+	box-shadow: 0 -5px 10px #00000010;
+	display: flex;
+}
+
+.main-container .user-input-container input {
+	flex: 1;
+	border: none;
+	color: #0f172a;
+	font-family: "Lexend Deca";
+	font-size: 1rem;
+	padding: 1rem;
+	background: transparent;
+}
+
+.main-container .user-input-container input::placeholder {
+	color: #94a3b8;
+}
+
+.main-container .user-input-container button {
+	border: none;
+	background: #0f172a;
+	color: #fff;
+	font-size: 1rem;
+	padding: 1rem;
+}
+
+.online-user-list-container {
+	display: none;
+}
