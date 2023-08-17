@@ -149,5 +149,32 @@ html {
 }
 
 .online-user-list-container {
-	display: none;
+	box-shadow: -5px 0 10px #00000010;
+	height: 100vh;
+	width: 0;
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	transition: 200ms;
+	overflow: hidden;
+}
+
+.online-user-list-container ul {
+	height: 100vh;
+	width: 100%;
+	background: #0f172a;
+	list-style: none;
+	overflow-y: auto;
+}
+
+.online-user-list-container ul li {
+	color: #fff;
+	padding: 1rem;
+	transition: 150ms;
+	white-space: nowrap;
+}
+
+.online-user-list-container ul li:hover {
+	background: #1e293b;
 }
