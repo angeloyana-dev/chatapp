@@ -1,0 +1,20 @@
+$slate: hsl(222, 47.4%, 11.2%);
+$slate-sub-dark: hsl(217, 32.6%, 17.5%);
+$slate-medium: hsl(215, 16.3%, 46.9%);
+$slate-100: hsl(210, 40%, 96.1%);
+$slate-50: hsl(210, 40%, 98%);
+$white: #fff;
+
+/* General styling */
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  outline: none;
+}
+
+html {
+  font-family: "Lexend Deca";
+  font-size: 16px;
+  color: $slate;
+}
