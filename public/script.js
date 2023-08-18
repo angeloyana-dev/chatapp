@@ -7,7 +7,7 @@ const sendMsgBtn = document.getElementById("sendMsgBtn")
 let username = window.prompt("Enter your username")
 let isValidUsername = false
 while(!isValidUsername) {
-	if(username === null || username === undefined){
+	if(username === null || username === ''){
 		username = window.prompt("Please enter a valid characters")
 	} else if(username.length > 10) {
 		username = window.prompt("Username can't be bigger than 10 characters")
