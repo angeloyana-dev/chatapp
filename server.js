@@ -36,5 +36,8 @@ io.on('connection', socket => {
 		})
 	})
 	
-	
+	// Communication
+	socket.on("send-message", (msgData) => {
+		socket.broadcast.emit("receive-message", msgData)
+	})
 })

@@ -40,6 +40,21 @@ socket.on("user-disconnected", (userData) => {
 	updateUsersList("remove", userData.id)
 })
 
+// Communication
+sendMsgBtn.addEventListener('click', () => {
+	if(!userInputMsg.value.length) return userInputMsg.select()
+	
+	createMsgContainer(username, userInputMsg.value, getTime(), true)
+	socket.emit("send-message", {
+		username,
+		message: userInputMsg.value
+	})
+	userInputMsg.value = ''
+})
+
+socket.on("receive-message", (msgData) => {
+	createMsgContainer(msgData.username, msgData.message, getTime())
+})
 
 // Messages generator
 function createGreet(username){
@@ -89,4 +104,15 @@ function openUsersList(){
 
 function closeUsersList(){
 	usersList.style.width = "0"
+}
+
+function getTime(){
+	const date = new Date()
+	let hour = date.getHours().toString()
+	let minute = date.getMinutes().toString()
+	
+	let status = hour >= 12 ? "pm" : "am"
+	hour = hour > 12 ? hour - 12 : hour
+	minute = minute.length === 2 ? minute : `0${minute}`
+	return `${hour}:${minute}${status}`
 }
