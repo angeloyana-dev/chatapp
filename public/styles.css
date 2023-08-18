@@ -57,6 +57,13 @@ html {
 	display: flex;
 	flex-direction: column;
 	gap: 0.45rem;
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+	scroll-behavior: smooth;
+}
+
+.main-container .msg-container #current-msg-wrapper::-webkit-scrollbar {
+	display: none;
 }
 
 .main-container .msg-container #current-msg-wrapper .greet-msg-container {

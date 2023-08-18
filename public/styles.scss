@@ -64,7 +64,14 @@ html {
 			display: flex;
 			flex-direction: column;
 			gap: 0.45rem;
+			-ms-overflow-style: none;
+  		scrollbar-width: none;
+  		scroll-behavior: smooth;
 			
+			&::-webkit-scrollbar {
+			  display: none;
+			}
+
 			.greet-msg-container {
 				display: flex;
 				justify-content: center;

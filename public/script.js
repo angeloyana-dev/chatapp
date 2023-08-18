@@ -125,3 +125,8 @@ function getTime(){
 function autoScroll(isBottom){
 	if(isBottom) return currentMsgWrapper.scrollTop = currentMsgWrapper.scrollHeight
 }
+
+// Scroll down message container on resize
+window.addEventListener('resize', () => {
+	currentMsgWrapper.scrollTop = currentMsgWrapper.scrollHeight
+})
