@@ -91,9 +91,13 @@ function createMsgContainer(username, message, time, isUserMsg){
 	usernameTextbox.innerText = username
 	timeTextbox.innerText = time
 	
+	// Checks if at the bottom of message container
+	const isBottom = currentMsgWrapper.scrollTop + currentMsgWrapper.clientHeight >= currentMsgWrapper.scrollHeight
 	wrapper.append(usernameTextbox, msgTextbox, timeTextbox)
 	container.append(wrapper)
 	currentMsgWrapper.append(container)
+	
+	autoScroll(isBottom)
 }
 
 // Dynamic DOM
@@ -115,4 +119,9 @@ function getTime(){
 	hour = hour > 12 ? hour - 12 : hour
 	minute = minute.length === 2 ? minute : `0${minute}`
 	return `${hour}:${minute}${status}`
+}
+
+// If true then scroll down else do nothing
+function autoScroll(isBottom){
+	if(isBottom) return currentMsgWrapper.scrollTop = currentMsgWrapper.scrollHeight
 }

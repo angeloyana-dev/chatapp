@@ -47,11 +47,12 @@ html {
 
 .main-container .msg-container {
 	flex: 1;
-	overflow-y: auto;
-	padding: 1rem;
+	overflow: hidden;
+	padding: 0 1rem;
 }
 
 .main-container .msg-container #current-msg-wrapper {
+	height: 100%;
 	overflow-y: auto;
 	display: flex;
 	flex-direction: column;
