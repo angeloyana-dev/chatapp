@@ -14,7 +14,25 @@ app.get('/', (req, res) => {
 
 server.listen(3000, term.green("Server started\n"))
 
+let onlineUsersList = []
 // Handle conversation here
 io.on('connection', socket => {
+	// Track online users
+	socket.on("user-connect", (username) => {
+		if(onlineUsersList.length) {
+			socket.emit("online-users-list", onlineUsersList)
+		}
+		socket.username = username
+		socket.broadcast.emit("user-connected", { username, id: socket.id })
+		onlineUsersList.push({ username, id: socket.id })
+	})
+	
+	socket.on("disconnect", () => {
+		io.emit("user-disconnected", { username: socket.username, id: socket.id })
+		onlineUsersList = onlineUsersList.filter((user) => {
+			return user.id !== socket.id
+		})
+	})
+	
 	
 })

@@ -2,6 +2,7 @@
 const currentMsgWrapper = document.getElementById("current-msg-wrapper")
 const userInputMsg = document.getElementById("inputMsg")
 const sendMsgBtn = document.getElementById("sendMsgBtn")
+const onlineUserList = document.getElementById("onlineUserList")
 
 // Username prompt
 let username = window.prompt("Enter your username")
@@ -18,10 +19,27 @@ while(!isValidUsername) {
 
 const socket = io()
 // Handle conversation here
-createGreet(username)
-// Testing
-createMsgContainer("user003", "Hello World!", "10:00pm", true)
-createMsgContainer("user030", "World Hello!", "10:01pm")
+// Updates online users list
+socket.on("connect", () => {
+	createGreet(username)
+	updateUsersList("add", socket.id, username)
+	socket.emit("user-connect", username)
+})
+
+socket.on("online-users-list", (serverUsersList) => {
+	serverUsersList.forEach((user) => {
+		updateUsersList("add", user.id, user.username)
+	})
+})
+
+socket.on("user-connected", (userData) => {
+	updateUsersList("add", userData.id, userData.username)
+})
+
+socket.on("user-disconnected", (userData) => {
+	updateUsersList("remove", userData.id)
+})
+
 
 // Messages generator
 function createGreet(username){
@@ -32,6 +50,18 @@ function createGreet(username){
 	wrapper.innerText = `Welcome to Chat app ${username}`
 	container.append(wrapper)
 	currentMsgWrapper.append(container)
+}
+
+function updateUsersList(method, id, username){
+	if(method === "remove"){
+		const userToRemove = onlineUserList.querySelector(`[data-id=${id}]`)
+		return userToRemove.remove()
+	} else if(method === "add"){
+		const usernameTextbox = document.createElement('li')
+		usernameTextbox.innerText = username
+		usernameTextbox.dataset.id = id
+		onlineUserList.append(usernameTextbox)
+	}
 }
 
 function createMsgContainer(username, message, time, isUserMsg){
