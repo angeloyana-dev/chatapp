@@ -1,5 +1,6 @@
 const path = require('path')
 const term = require('terminal-kit').terminal
+const moment = require('moment-timezone')
 
 const express = require('express')
 const app = express()
@@ -14,6 +15,7 @@ app.get('/', (req, res) => {
 
 server.listen(3000, term.blue("Server started\n"))
 
+let oldMsgList = []
 let onlineUsersList = []
 // Handle conversation here
 io.on('connection', socket => {
@@ -23,6 +25,10 @@ io.on('connection', socket => {
 		if(onlineUsersList.length) {
 			socket.emit("online-users-list", onlineUsersList)
 		}
+		if(oldMsgList.length) {
+			socket.emit("old-msg-list", oldMsgList)
+		}
+		
 		socket.username = username
 		socket.broadcast.emit("user-connected", { username, id: socket.id })
 		onlineUsersList.push({ username, id: socket.id })
@@ -38,6 +44,8 @@ io.on('connection', socket => {
 	
 	// Communication
 	socket.on("send-message", (msgData) => {
+		msgData['time'] = moment().tz('Asia/Manila').format('hh:mma')
+		oldMsgList.push(msgData)
 		socket.broadcast.emit("receive-message", msgData)
 	})
 })

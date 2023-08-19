@@ -1,5 +1,6 @@
 // Global variables
 const currentMsgWrapper = document.getElementById("current-msg-wrapper")
+const oldMsgWrapper = document.getElementById("old-msg-wrapper")
 const userInputMsg = document.getElementById("inputMsg")
 const sendMsgBtn = document.getElementById("sendMsgBtn")
 const onlineUserList = document.getElementById("onlineUserList")
@@ -40,11 +41,17 @@ socket.on("user-disconnected", (userData) => {
 	updateUsersList("remove", userData.id)
 })
 
+socket.on("old-msg-list", (msgData) => {
+	msgData.forEach((msg) => {
+		createMsgContainer(oldMsgWrapper, msg.username, msg.message, false, msg.time)
+	})
+})
+
 // Communication
 sendMsgBtn.addEventListener('click', () => {
 	if(!userInputMsg.value.length) return userInputMsg.select()
 	
-	createMsgContainer(username, userInputMsg.value, getTime(), true)
+	createMsgContainer(currentMsgWrapper, username, userInputMsg.value, true)
 	socket.emit("send-message", {
 		username,
 		message: userInputMsg.value
@@ -53,7 +60,7 @@ sendMsgBtn.addEventListener('click', () => {
 })
 
 socket.on("receive-message", (msgData) => {
-	createMsgContainer(msgData.username, msgData.message, getTime())
+	createMsgContainer(currentMsgWrapper, msgData.username, msgData.message , false, msgData.time)
 })
 
 // Messages generator
@@ -79,23 +86,27 @@ function updateUsersList(method, id, username){
 	}
 }
 
-function createMsgContainer(username, message, time, isUserMsg){
+function createMsgContainer(msgContainer, username, message, isUserMsg, time){
 	const container = document.createElement('div')
 	const wrapper = document.createElement('div')
 	const msgTextbox = document.createElement('p')
 	const usernameTextbox = document.createElement('span')
-	const timeTextbox = document.createElement('span')
+	let timeTextbox
 	
+	if(!isUserMsg){
+		timeTextbox = document.createElement('span')
+		timeTextbox.innerText = time
+	}
 	container.classList.add(isUserMsg ? "user-msg-container" : "others-msg-container")
 	msgTextbox.innerText = message
 	usernameTextbox.innerText = username
-	timeTextbox.innerText = time
 	
 	// Checks if at the bottom of message container
 	const isBottom = currentMsgWrapper.scrollTop + currentMsgWrapper.clientHeight >= currentMsgWrapper.scrollHeight
-	wrapper.append(usernameTextbox, msgTextbox, timeTextbox)
+	wrapper.append(usernameTextbox, msgTextbox)
+	if(timeTextbox) wrapper.append(timeTextbox)
 	container.append(wrapper)
-	currentMsgWrapper.append(container)
+	msgContainer.append(container)
 	
 	autoScroll(isBottom)
 }
