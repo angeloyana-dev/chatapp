@@ -1,11 +1,14 @@
 const path = require('path')
 const term = require('terminal-kit').terminal
 const moment = require('moment-timezone')
+const Client = require('@replit/database')
 
 const express = require('express')
 const app = express()
 const server = require('http').createServer(app)
 const io = require('socket.io')(server)
+
+const client = new Client()
 
 app.use(express.static('public'))
 
@@ -15,7 +18,7 @@ app.get('/', (req, res) => {
 
 server.listen(3000, term.blue("Server started\n"))
 
-let oldMsgList = []
+let oldMsgList = client.get('old-messages') || []
 let onlineUsersList = []
 // Handle conversation here
 io.on('connection', socket => {
@@ -43,9 +46,10 @@ io.on('connection', socket => {
 	})
 	
 	// Communication
-	socket.on("send-message", (msgData) => {
+	socket.on("send-message", async (msgData) => {
 		msgData['time'] = moment().tz('Asia/Manila').format('hh:mma')
-		oldMsgList.push(msgData)
 		socket.broadcast.emit("receive-message", msgData)
+		oldMsgList.push(msgData)
+		await client.set("old-messages", oldMsgList)
 	})
 })
