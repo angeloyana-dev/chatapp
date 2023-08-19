@@ -18,10 +18,10 @@ app.get('/', (req, res) => {
 
 server.listen(3000, term.blue("Server started\n"))
 
-let oldMsgList = client.get('old-messages') || []
 let onlineUsersList = []
 // Handle conversation here
-io.on('connection', socket => {
+io.on('connection', async socket => {
+  let oldMsgList = await client.get('old-messages') || []
 	// Track online users
 	socket.on("user-connect", (username) => {
 		term.green(`[User connected] Username: ${username}\n`)
