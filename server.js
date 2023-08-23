@@ -1,55 +1,28 @@
-const path = require('path')
-const term = require('terminal-kit').terminal
-const moment = require('moment-timezone')
-const Client = require('@replit/database')
-
 const express = require('express')
 const app = express()
-const server = require('http').createServer(app)
-const io = require('socket.io')(server)
 
-const client = new Client()
-
+// Middlewares
+app.set('view engine', 'ejs')
 app.use(express.static('public'))
 
+// Endpoints
 app.get('/', (req, res) => {
-	res.sendFile(path.join(__dirname, 'public', 'index.html'))
-})
-
-server.listen(3000, term.blue("Server started\n"))
-
-let onlineUsersList = []
-// Handle conversation here
-io.on('connection', async socket => {
-  let oldMsgList = await client.get('old-messages') || []
-	// Track online users
-	socket.on("user-connect", (username) => {
-		term.green(`[User connected] Username: ${username}\n`)
-		if(onlineUsersList.length) {
-			socket.emit("online-users-list", onlineUsersList)
-		}
-		if(oldMsgList.length) {
-			socket.emit("old-msg-list", oldMsgList)
-		}
-		
-		socket.username = username
-		socket.broadcast.emit("user-connected", { username, id: socket.id })
-		onlineUsersList.push({ username, id: socket.id })
-	})
-	
-	socket.on("disconnect", () => {
-		term.red(`[User disconnected] Username: ${socket.username}\n`)
-		io.emit("user-disconnected", { username: socket.username, id: socket.id })
-		onlineUsersList = onlineUsersList.filter((user) => {
-			return user.id !== socket.id
-		})
-	})
-	
-	// Communication
-	socket.on("send-message", async (msgData) => {
-		msgData['time'] = moment().tz('Asia/Manila').format('hh:mma')
-		socket.broadcast.emit("receive-message", msgData)
-		oldMsgList.push(msgData)
-		await client.set("old-messages", oldMsgList)
+	res.render('index', {
+		title: 'Chat App | Global Room'
 	})
 })
+
+app.get('/login', (req, res) => {
+	res.render('login', {
+		title: 'Chat App | Login'
+	})
+})
+
+app.get('/register', (req, res) => {
+	res.render('register', {
+		title: 'Chat App | Create account'
+	})
+})
+
+const PORT = process.env.PORT || 3000
+app.listen(PORT)
