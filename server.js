@@ -31,7 +31,6 @@ const client = new MongoClient(
 
 // Endpoints
 app.get('/', checkAuthHome, (req, res) => {
-	console.log(req.user)
 	res.render('index', {
 		title: 'Chat App | Global Room',
 		user: req.user

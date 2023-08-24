@@ -1,0 +1,187 @@
+$dark: hsl(240, 5.9%, 10%);
+$darkgray: hsl(240, 3.7%, 15.9%);
+$gray: hsl(240, 5.2%, 33.9%);
+$white: #fff;
+
+/* General styling */
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+html {
+	font-family: 'Lexend Deca';
+	font-size: 16px;
+	color: $dark;
+}
+
+/* Main */
+.main {
+	width: 100%;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	background: hsl(0, 0%, 98%);
+	position: relative;
+	
+	header {
+		background: $dark;
+		color: $white;
+		position: relative;
+		
+		h1 {
+			font-family: 'Montserrat';
+			font-size: 1.2rem;
+			font-weight: 500;
+			padding: 1rem;
+			text-align: center;
+		}
+		
+		button {
+			border: none;
+			font-size: 1.05rem;
+			color: $white;
+			background: transparent;
+			position: absolute;
+			top: 50%;
+			transform: translateY(-50%);
+			
+			&:first-child {
+				left: 1rem;
+			}
+			
+			&:last-child {
+				right: 1rem;
+			}
+		}
+	}
+	
+	.messages-container {
+		flex: 1;
+		overflow-y: auto;
+		scroll-behavior: smooth;
+		padding: 1rem;
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+		
+		.other-msg-wrapper {
+			display: flex;
+			justify-content: flex-start;
+			
+			> div {
+				max-width: 60%;
+				
+				span {
+					font-size: 0.8rem;
+					color: $gray;
+				}
+				
+				p {
+					padding: 1rem;
+					background: hsl(240, 5.9%, 90%);
+					border-radius: 0.5rem;
+					word-break: break-all;
+				}
+			}
+		}
+		
+		.user-msg-wrapper {
+			display: flex;
+			justify-content: flex-end;
+			
+			> div {
+				max-width: 60%;
+				
+				span {
+					font-size: 0.8rem;
+					color: $gray;
+					display: block;
+					text-align: right;
+				}
+				
+				p {
+					padding: 1rem;
+					background: $dark;
+					color: $white;
+					border-radius: 0.5rem;
+					word-break: break-all;
+				}
+			}
+		}
+	}
+	
+	.input-container {
+		box-shadow: 0 -0.5rem 0.5rem #00000010;
+		display: flex;
+		
+		input {
+			flex: 1;
+			font-family: 'Lexend Deca';
+			font-size: 1rem;
+			border: none;
+			background: transparent;
+			padding: 1rem;
+			outline: none;
+			
+			&:placeholder {
+				color: $gray;
+			}
+		}
+		
+		button {
+			font-size: 1rem;
+			padding: 1rem;
+			border: none;
+			background: $dark;
+			color: $white;
+		}
+	}
+	
+	.active-users-list-container {
+		width: 0;
+		height: 100vh;
+		position: absolute;
+		top: 0;
+		right: 0;
+		display: flex;
+		flex-direction: column;
+		background: $dark;
+		overflow: hidden;
+		transition: 200ms;
+		
+		> button {
+			padding: 1rem;
+			width: 100%;
+			font-size: 1rem;
+			border: none;
+			background: transparent;
+			color: $white;
+			text-align: left;
+			font-family: 'Lexend Deca';
+			
+			&:hover {
+				background: $darkgray;
+			}
+		}
+		
+		ul {
+			width: 100%;
+			flex: 1;
+			overflow-y: auto;
+		}
+		
+		li {
+			padding: 1rem;
+			list-style: none;
+			color: #fff;
+			position: relative;
+			transition: 150ms;
+			
+			&:hover {
+				background: $darkgray;
+			}
+		}
+	}
+}

@@ -1,0 +1,182 @@
+/* General styling */
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+html {
+	font-family: 'Lexend Deca';
+	font-size: 16px;
+	color: #18181b;
+}
+
+/* Main */
+.main {
+	width: 100%;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	background: #fafafa;
+	position: relative;
+}
+
+.main header {
+	background: #18181b;
+	color: #fff;
+	position: relative;
+}
+
+.main header h1 {
+	font-family: 'Montserrat';
+	font-size: 1.2rem;
+	font-weight: 500;
+	padding: 1rem;
+	text-align: center;
+}
+
+.main header button {
+	border: none;
+	font-size: 1.05rem;
+	color: #fff;
+	background: transparent;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+.main header button:first-child {
+	left: 1rem;
+}
+
+.main header button:last-child {
+	right: 1rem;
+}
+
+.main .messages-container {
+	flex: 1;
+	overflow-y: auto;
+	scroll-behavior: smooth;
+	padding: 1rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+.main .messages-container .other-msg-wrapper {
+	display: flex;
+	justify-content: flex-start;
+}
+
+.main .messages-container .other-msg-wrapper > div {
+	max-width: 60%;
+}
+
+.main .messages-container .other-msg-wrapper > div span {
+	font-size: 0.8rem;
+	color: #52525b;
+}
+
+.main .messages-container .other-msg-wrapper > div p {
+	padding: 1rem;
+	background: #e4e4e7;
+	border-radius: 0.5rem;
+	word-break: break-all;
+}
+
+.main .messages-container .user-msg-wrapper {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.main .messages-container .user-msg-wrapper > div {
+	max-width: 60%;
+}
+
+.main .messages-container .user-msg-wrapper > div span {
+	font-size: 0.8rem;
+	color: #52525b;
+	display: block;
+	text-align: right;
+}
+
+.main .messages-container .user-msg-wrapper > div p {
+	padding: 1rem;
+	background: #18181b;
+	color: #fff;
+	border-radius: 0.5rem;
+	word-break: break-all;
+}
+
+.main .input-container {
+	box-shadow: 0 -0.5rem 0.5rem #00000010;
+	display: flex;
+}
+
+.main .input-container input {
+	flex: 1;
+	font-family: 'Lexend Deca';
+	font-size: 1rem;
+	border: none;
+	background: transparent;
+	padding: 1rem;
+	outline: none;
+}
+
+.main .input-container input:placeholder {
+	color: #52525b;
+}
+
+.main .input-container button {
+	font-size: 1rem;
+	padding: 1rem;
+	border: none;
+	background: #18181b;
+	color: #fff;
+}
+
+.main .active-users-list-container {
+	width: 0;
+	height: 100vh;
+	position: absolute;
+	top: 0;
+	right: 0;
+	display: flex;
+	flex-direction: column;
+	background: #18181b;
+	overflow: hidden;
+	transition: 200ms;
+}
+
+.main .active-users-list-container > button {
+	padding: 1rem;
+	width: 100%;
+	font-size: 1rem;
+	border: none;
+	background: transparent;
+	color: #fff;
+	text-align: left;
+	font-family: 'Lexend Deca';
+}
+
+.main .active-users-list-container > button:hover {
+	background: #27272a;
+}
+
+.main .active-users-list-container ul {
+	width: 100%;
+	flex: 1;
+	overflow-y: auto;
+}
+
+.main .active-users-list-container li {
+	padding: 1rem;
+	list-style: none;
+	color: #fff;
+	position: relative;
+	transition: 150ms;
+}
+
+.main .active-users-list-container li:hover {
+	background: #27272a;
+}

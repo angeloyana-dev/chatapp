@@ -1,1 +1,46 @@
-<h1>Homepage</h1>
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100;200;300;400;500;600;700;800;900&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+		<link rel="stylesheet" href="/main.css">
+		<script>
+			const id = <%= user.id %>
+			const username = <%= user.name %>
+		</script>
+		<script defer src="/script.js"></script>
+		<title><%= title %></title>
+	</head>
+	<body>
+		<div class="main">
+			<header>
+				<button class="fa-solid fa-right-from-bracket"></button>
+				<h1>Chat App</h1>
+				<button class="fa-solid fa-user" onclick="toggleActiveUserList('open')"></button>
+			</header>
+			
+			<!-- All messages container -->
+			<section id="messagesContainer" class="messages-container">
+				<div class="old-messages-container"></div>
+				<!-- Messages will be generated here -->
+			</section>
+			
+			<!-- Message input container -->
+			<section class="input-container">
+				<input type="text" id="msgInput" placeholder="Type a message">
+				<button class="fa-solid fa-paper-plane" id="sendBtn"></button>
+			</section>
+			
+			<!-- Active users list -->
+			<section id="activeUserListContainer" class="active-users-list-container">
+				<button onclick="toggleActiveUserList()">Close</button>
+				<ul id="activeUserList"></ul>
+			</section>
+		</div>
+	</body>
+</html>
