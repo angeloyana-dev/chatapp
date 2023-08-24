@@ -1,19 +1,63 @@
 const activeUserListContainer = document.getElementById("activeUserListContainer")
 const activeUserList = document.getElementById("activeUserList")
+const oldMessagesContainer = document.getElementById("oldMessagesContainer")
 const messagesContainer = document.getElementById("messagesContainer")
 const msgInput = document.getElementById("msgInput")
 const sendBtn = document.getElementById("sendBtn")
+
+/*** SOCKET CONVERSATION ***/
+const socket = io()
+socket.on('connect', () => {
+	updateActiveUserList('add', id, username)
+	socket.emit('user-connect', { id, name: username })
+})
+
+socket.on('user-connected', (user) => {
+	updateActiveUserList('add', user.id, user.name)
+})
+
+socket.on('user-disconnected', (user) => {
+	updateActiveUserList('remove', user.id)
+})
+
+socket.on('active-users-list', (list) => {
+	list.forEach((user) => {
+		updateActiveUserList('add', user.id, user.name)
+	})
+})
+
+socket.on('receive-old-messages', (messages) => {
+	messages.forEach((msg) => {
+		const type = msg.id === id && 'self'
+		createMsgContainer(oldMessagesContainer, msg.name, msg.message, type)
+	})
+	messagesContainer.scrollTop = messagesContainer.scrollHeight
+})
+
 sendBtn.addEventListener('click', () => {
 	// Return if input is empty
 	if(!msgInput.value) return msgInput.select()
-	createMsgContainer('user001', msgInput.value, 'self')
+	
+	createMsgContainer(messagesContainer, username, msgInput.value, 'self')
+	socket.emit('send-message', {
+		id,
+		name: username,
+		message: msgInput.value
+	})
 	msgInput.value = ''
 })
+
+socket.on('receive-message', (msg) => {
+	createMsgContainer(messagesContainer, msg.name, msg.message)
+})
+
+/*** ------------------- ***/
 
 // Generate elements
 function updateActiveUserList(type, userId, userName){
 	if(type === 'remove') {
-		const elementToRemove = activeUserList.querySelector(`[data-user-id=${userId}]`)
+		const elementToRemove = activeUserList.querySelector(`[data-user-id="${userId}"]`)
+		console.log(elementToRemove)
 		elementToRemove.remove()
 	} else {
 		const wrapper = document.createElement('li')
@@ -23,7 +67,7 @@ function updateActiveUserList(type, userId, userName){
 	}
 }
 
-function createMsgContainer(userName, msg, type){
+function createMsgContainer(where, userName, msg, type){
 	const container = document.createElement('div')
 	const wrapper = document.createElement('div')
 	const nameTextbox = document.createElement('span')
@@ -40,7 +84,7 @@ function createMsgContainer(userName, msg, type){
 	
 	wrapper.append(nameTextbox, msgTextbox)
 	container.append(wrapper)
-	messagesContainer.append(container)
+	where.append(container)
 	autoScrollDown(isBottom, scrollHeight)
 }
 

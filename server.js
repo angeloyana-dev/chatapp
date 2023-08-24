@@ -8,6 +8,8 @@ const flash = require('express-flash')
 const session = require('express-session')
 const express = require('express')
 const app = express()
+const server = require('http').createServer(app)
+const io = require('socket.io')(server)
 
 
 // Middlewares
@@ -88,8 +90,35 @@ start()
 async function start() {
 	await client.connect()
 	const PORT = process.env.PORT || 3000
-	app.listen(PORT)
+	server.listen(PORT)
 }
+
+/*** SOCKET CONVERSATION ***/
+let activeUsersList = []
+io.on('connection', socket => {
+	socket.on('user-connect', async (user) => {
+		socket.emit('active-users-list', activeUsersList)
+		socket.broadcast.emit('user-connected', user)
+		const oldMessages = await client.db(process.env.DB_NAME).collection(process.env.MESSAGES_COLLECTION).find().toArray()
+		socket.emit('receive-old-messages', oldMessages)
+		socket.userId = user.id
+		socket.name = user.name
+		activeUsersList.push(user)
+	})
+	
+	socket.on('disconnect', () => {
+		activeUsersList = activeUsersList.filter((user) => {
+			return user.id !== socket.userId
+		})
+		io.emit('user-disconnected', { id: socket.userId, name: socket.name })
+	})
+	
+	socket.on('send-message', async (msg) => {
+		await client.db(process.env.DB_NAME).collection(process.env.MESSAGES_COLLECTION).insertOne(msg)
+		socket.broadcast.emit('receive-message', msg)
+	})
+})
+/*** ------------------- ***/
 // Middleware Functions
 function initializeLocalStrategy(){
 	passport.use(new LocalStrategy(async (username, password, done) => {
