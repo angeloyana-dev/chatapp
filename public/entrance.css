@@ -19,6 +19,8 @@ html {
 }
 
 .main > .wrapper {
+	width: 85%;
+	max-width: 25rem;
 	padding: 2rem 1.5rem;
 	box-shadow: 0 0.25rem 0.5rem #00000020;
 	display: grid;
@@ -26,6 +28,7 @@ html {
 }
 
 .main > .wrapper p.error {
+	font-size: 0.7rem;
 	color: #ef4444;
 }
 
@@ -41,6 +44,7 @@ html {
 
 .main > .wrapper .input-group input {
 	font-size: 1rem;
+	width: 100%;
 	padding: 0.7rem;
 	border: 2px solid #18181b;
 	border-radius: 0.25rem;

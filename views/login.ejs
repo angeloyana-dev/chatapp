@@ -12,12 +12,15 @@
 	</head>
 	<body>
 		<div class="main">
-			<form class="wrapper">
+			<form class="wrapper" action="/login" method="post">
 				<header>
 					<h1>Login</h1>
 					<p>Welcome to Chat App!</p>
 				</header>
 				<div class="form-group">
+					<% if(messages) { %>
+					<p class="error"><%= messages.error %></p>
+					<% } %>
 					<div class="input-group">
 						<input type="text" id="username" name="username" placeholder=" " required>
 						<label for="username">Username</label>
