@@ -62,6 +62,10 @@ app.post('/login', checkAuth, passport.authenticate('local', {
 }))
 
 app.post('/register', checkAuth, async (req, res) => {
+	if(req.body.name.length > 12) {
+		req.flash('error', "Name length can't be higher than 12 characters")
+		return res.redirect('/register')
+	}
 	const existingUser = await client.db(process.env.DB_NAME).collection(process.env.USERS_CREDENTIAL_COLLECTION).find({ username: req.body.username }).limit(1).toArray()
 	if(existingUser.length) {
 		req.flash('error', 'Username is already taken.')
