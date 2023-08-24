@@ -46,6 +46,7 @@ html {
 }
 
 .main header button:first-child {
+	right: auto !important;
 	left: 1rem;
 }
 

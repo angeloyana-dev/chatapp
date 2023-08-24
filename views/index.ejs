@@ -20,7 +20,9 @@
 	<body>
 		<div class="main">
 			<header>
-				<button class="fa-solid fa-right-from-bracket"></button>
+				<form action="/logout?_method=DELETE" method="post">
+					<button class="fa-solid fa-right-from-bracket"></button>
+				</form>
 				<h1>Chat App</h1>
 				<button class="fa-solid fa-user" onclick="toggleActiveUserList('open')"></button>
 			</header>

@@ -48,6 +48,7 @@ html {
 			transform: translateY(-50%);
 			
 			&:first-child {
+				right: auto !important;
 				left: 1rem;
 			}
 			

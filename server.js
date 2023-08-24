@@ -2,6 +2,7 @@ require('dotenv').config()
 const { MongoClient } = require('mongodb')
 const passport = require('passport')
 const LocalStrategy = require('passport-local')
+const methodOverride = require('method-override')
 const { v4: uuidv4 } = require('uuid')
 const bcrypt = require('bcryptjs')
 const flash = require('express-flash')
@@ -22,6 +23,7 @@ app.use(session({
 	saveUninitialized: false
 }))
 app.use(flash())
+app.use(methodOverride('_method'))
 
 // Passport and MongoDB configurations
 app.use(passport.initialize())
@@ -83,6 +85,12 @@ app.post('/register', checkAuth, async (req, res) => {
 			res.redirect('/register')
 		}
 	}
+})
+
+app.delete('/logout', (req, res) => {
+	req.logout(() => {
+		res.redirect('/login')
+	})
 })
 
 // Start server
