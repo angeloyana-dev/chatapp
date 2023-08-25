@@ -45,6 +45,7 @@ sendBtn.addEventListener('click', () => {
 		message: msgInput.value
 	})
 	msgInput.value = ''
+	msgInput.select()
 })
 
 socket.on('receive-message', (msg) => {
