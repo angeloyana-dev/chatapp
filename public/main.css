@@ -73,12 +73,26 @@ html {
 }
 
 .main .messages-container .other-msg-wrapper {
-	display: flex;
-	justify-content: flex-start;
+	display: grid;
+	grid-template-rows: repeat(2, auto);
+}
+
+.main .messages-container .other-msg-wrapper span.time {
+	grid-row: 1;
+	height: 0;
+	overflow: hidden;
+	font-size: 0.8rem;
+	color: #52525b;
+	text-align: center;
+	transition: 150ms;
 }
 
 .main .messages-container .other-msg-wrapper > div {
 	max-width: 60%;
+}
+
+.main .messages-container .other-msg-wrapper > div:hover + span.time {
+	height: 0.8rem;
 }
 
 .main .messages-container .other-msg-wrapper > div span {
@@ -94,12 +108,27 @@ html {
 }
 
 .main .messages-container .user-msg-wrapper {
-	display: flex;
-	justify-content: flex-end;
+	display: grid;
+	grid-template-rows: repeat(2, auto);
+}
+
+.main .messages-container .user-msg-wrapper span.time {
+	grid-row: 1;
+	height: 0;
+	overflow: hidden;
+	font-size: 0.8rem;
+	color: #52525b;
+	text-align: center;
+	transition: 150ms;
 }
 
 .main .messages-container .user-msg-wrapper > div {
 	max-width: 60%;
+	margin-left: auto;
+}
+
+.main .messages-container .user-msg-wrapper > div:hover + span.time {
+	height: 0.8rem;
 }
 
 .main .messages-container .user-msg-wrapper > div span {

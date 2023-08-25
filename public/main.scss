@@ -76,11 +76,25 @@ html {
 		}
 		
 		.other-msg-wrapper {
-			display: flex;
-			justify-content: flex-start;
+			display: grid;
+			grid-template-rows: repeat(2, auto);
+			
+			span.time {
+				grid-row: 1;
+				height: 0;
+				overflow: hidden;
+				font-size: 0.8rem;
+				color: $gray;
+				text-align: center;
+				transition: 150ms;
+			}
 			
 			> div {
 				max-width: 60%;
+				
+				&:hover + span.time {
+					height: 0.8rem;
+				}
 				
 				span {
 					font-size: 0.8rem;
@@ -97,11 +111,26 @@ html {
 		}
 		
 		.user-msg-wrapper {
-			display: flex;
-			justify-content: flex-end;
+			display: grid;
+			grid-template-rows: repeat(2, auto);
+			
+			span.time {
+				grid-row: 1;
+				height: 0;
+				overflow: hidden;
+				font-size: 0.8rem;
+				color: $gray;
+				text-align: center;
+				transition: 150ms;
+			}
 			
 			> div {
 				max-width: 60%;
+				margin-left: auto;
+				
+				&:hover + span.time {
+					height: 0.8rem;
+				}
 				
 				span {
 					font-size: 0.8rem;

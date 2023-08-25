@@ -29,7 +29,7 @@ socket.on('active-users-list', (list) => {
 socket.on('receive-old-messages', (messages) => {
 	messages.forEach((msg) => {
 		const type = msg.id === id && 'self'
-		createMsgContainer(oldMessagesContainer, msg.name, msg.message, type)
+		createMsgContainer(oldMessagesContainer, msg.name, msg.message, msg.timeSent, type)
 	})
 	messagesContainer.scrollTop = messagesContainer.scrollHeight
 })
@@ -38,18 +38,20 @@ sendBtn.addEventListener('click', () => {
 	// Return if input is empty
 	if(!msgInput.value) return msgInput.select()
 	
-	createMsgContainer(messagesContainer, username, msgInput.value, 'self')
+	const time = moment.tz('Asia/Manila').format('MM/DD/YY hh:mma')
+	createMsgContainer(messagesContainer, username, msgInput.value, time, 'self')
 	socket.emit('send-message', {
 		id,
 		name: username,
-		message: msgInput.value
+		message: msgInput.value,
+		timeSent: time
 	})
 	msgInput.value = ''
 	msgInput.select()
 })
 
 socket.on('receive-message', (msg) => {
-	createMsgContainer(messagesContainer, msg.name, msg.message)
+	createMsgContainer(messagesContainer, msg.name, msg.message, msg.time)
 })
 
 /*** ------------------- ***/
@@ -68,23 +70,26 @@ function updateActiveUserList(type, userId, userName){
 	}
 }
 
-function createMsgContainer(where, userName, msg, type){
+function createMsgContainer(where, userName, msg, time, type){
 	const container = document.createElement('div')
 	const wrapper = document.createElement('div')
 	const nameTextbox = document.createElement('span')
 	const msgTextbox = document.createElement('p')
+	const timeTextbox = document.createElement('span')
 	
 	const wrapperType = type === 'self' ? 'user-msg-wrapper' : 'other-msg-wrapper'
 	container.classList.add(wrapperType)
 	nameTextbox.innerText = userName
 	msgTextbox.innerText = msg
+	timeTextbox.innerText = time
+	timeTextbox.classList.add('time')
 	
 	const scrollPosition = messagesContainer.scrollTop + messagesContainer.clientHeight
 	const scrollHeight = messagesContainer.scrollHeight
 	const isBottom = scrollPosition >= scrollHeight
 	
 	wrapper.append(nameTextbox, msgTextbox)
-	container.append(wrapper)
+	container.append(wrapper, timeTextbox)
 	where.append(container)
 	autoScrollDown(isBottom, scrollHeight)
 }
