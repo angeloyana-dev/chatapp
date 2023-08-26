@@ -91,6 +91,7 @@ html {
 			
 			> div {
 				max-width: 60%;
+				margin-right: auto;
 				
 				&:hover + span.time {
 					height: 0.8rem;

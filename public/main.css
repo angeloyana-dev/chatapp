@@ -89,6 +89,7 @@ html {
 
 .main .messages-container .other-msg-wrapper > div {
 	max-width: 60%;
+	margin-right: auto;
 }
 
 .main .messages-container .other-msg-wrapper > div:hover + span.time {
